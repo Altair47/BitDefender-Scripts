@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
-def loaddata(f):
-	tmp = open('keystest.txt','r')
+def loaddata(k,f):
+	tmp = open(k,'r')
 	f = tmp.readlines() #Imported in a list
 	tmp.close()
 	if f==1:
@@ -22,7 +22,7 @@ def unloaddata(j,f,k):
 		else:
 			for item in f:
 				tmp.write(item)
-	print("Finished exporting data to Export.txt")
+	print("Finished exporting data to: ",j)
 
 def appenddata(f):
 	tmp = open('appended.txt','a+')
@@ -38,7 +38,7 @@ def fetusdeletus(f,k):
 			if not any(bannedbois in line for bannedbois in bannedbois):
 				newfile.write(line)
 
-def cleartrash(f):
+def cleartrash(f,j):
 	tmp = open(f,'r')
 	k = tmp.readlines() #Imported in a list
 	tmp.close()
@@ -48,8 +48,22 @@ def cleartrash(f):
 	for i in range(len(k)):
 		k[i]=k[i].replace('</td>','')
 		print(k[i])
-	unloaddata('exportfinal.txt',k,0)
+	unloaddata(j,k,0)
 
+def dupl():
+	f=loaddata('keystest.txt',0)
+	k=list()
+	if len(f) == len(set(f)):
+		print("No Duplicate")
+	else:
+		print("Yes there are duplicates:")
+	for i in range(len(f)):
+		for j in range(i+1,len(f)):
+			if f[i]==f[j]:
+				print(f[i])
+				k.append(f[i])
+				k.append(i+1)
+	return(k)
 
 #Shorting techniques
 '''

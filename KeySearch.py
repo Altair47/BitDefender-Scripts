@@ -2,7 +2,7 @@ from selenium import webdriver
 import time
 from bs4 import BeautifulSoup
 from config import *
-from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash
+from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash,dupl
 
 #Engage Driver
 driver = webdriver.Chrome()
@@ -21,7 +21,7 @@ driver.find_element_by_xpath('//*[@id="UserLoginForm"]/div[3]/input').click()
 #Searching keys
 
 
-f=loaddata(0)
+f=loaddata('keystest.txt',0)
 
 ff=list() #temp key list
 tlist=list() #temp name list
@@ -80,6 +80,7 @@ print(ff)
 print(names)
 unloaddata('export.txt',names,1)
 fetusdeletus('export.txt','newfile.txt')
-cleartrash('newfile.txt')
+cleartrash('newfile.txt','exportfinal.txt')
+print(dupl())
 
 driver.quit()
