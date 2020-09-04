@@ -2,7 +2,7 @@ from selenium import webdriver
 import time
 from bs4 import BeautifulSoup
 from config import *
-from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash,dupl
+from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash,dupl,cleartrash2
 
 #Engage Driver
 driver = webdriver.Chrome()
@@ -56,6 +56,9 @@ while i < len(f):
 		html = driver.page_source
 		soup = BeautifulSoup(html, 'html.parser')
 		tags = soup.find_all('td')
+		activs = soup.find_all('span')
+		for activ in activs:
+			if "is not activated" in activ.text: tlist.append(activ)
 		for tag in tags:
 			if "@" in tag.text:	tlist.append(tag)
 		tlist = list(tlist)
@@ -79,6 +82,7 @@ appenddata('----End----\n')
 print(ff)
 print(names)
 unloaddata('export.txt',names,1)
+cleartrash2('export.txt','exportactiv.txt')
 fetusdeletus('export.txt','newfile.txt')
 cleartrash('newfile.txt','exportfinal.txt')
 print(dupl())

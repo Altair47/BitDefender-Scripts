@@ -1,7 +1,13 @@
-from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash,dupl
+from Func import unloaddata,loaddata,appenddata,fetusdeletus,cleartrash,dupl,cleartrash2
 
-t=input('1 to find duplicate, 2 to clear trash from newfile to exportfinal: ')
-if t==2:
-	cleartrash('newfile.txt','exportfinal.txt')
-else:
-	dupl()
+
+#cleartrash2('Export.txt','exportfinal.txt')
+
+f=loaddata('2exportactiv.txt',0)
+k=loaddata('keystest.txt',0)
+list_dif = [i for i in k + f if i not in k or i not in f]
+print (list_dif)
+#with sets
+#c=list()
+#c=(list(set(k) - set(f))) 
+unloaddata('newnew.txt',list_dif,0)

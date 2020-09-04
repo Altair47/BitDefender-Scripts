@@ -50,6 +50,23 @@ def cleartrash(f,j):
 		print(k[i])
 	unloaddata(j,k,0)
 
+def cleartrash2(f,j):
+	tmp = open(f,'r')
+	k = tmp.readlines() #Imported in a list
+	tmp.close()
+	
+	for i in range(len(k)):
+		k[i]=k[i].replace('<span>The code ','')
+		k[i]=k[i].replace(' is not activated. </span>','')
+		print(k[i])
+	bannedbois = [' ','@','class=']
+	unloaddata(j,k,0)
+	with open(j) as oldfile, open('2'+j, 'w') as newfile:
+		for line in oldfile:
+			if not any(bannedbois in line for bannedbois in bannedbois):
+				newfile.write(line)
+	
+
 def dupl():
 	f=loaddata('keystest.txt',0)
 	k=list()

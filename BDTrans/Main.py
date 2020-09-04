@@ -29,16 +29,32 @@ while 1:
 	
 		trns=translator.translate(txttr, dest='el')
 		trnsf=trns.text
-	
+
+		a_dict = {
+			'[Προϊόν]': '​[Product]​',
+			'[Κεντρική]':'​[Central]​',
+			'<a> <b> <c /> </b> </a>':'​​<a>​ ​<b>​ ​<c/>​ ​</b>​ ​</a>',
+			'<b> <c> <d /> </c> </b>':'​​<b> <c> <d/> </c> </b>',
+			'{ημερομηνία}':'​​{date}',
+			'\"{info}\"':'​​\'​{info}\'',
+			'{{factory_name}}':'​​{{manufacturer_​name}}',
+			'\ n':'\\n',
+			'<span class = "text-primer"> {{phone}} </span>':'<span class="text-primary">​{{phone}}​</span>​',
+			'<span class = "text-primer nowrap"> {{phone}} </span>':'<span class="text-primary nowrap">​{{phone}}​</span>',
+			'<span class = "text-primer"> {{number}} </span>':'<span class="text-primary">​{{number}}​</span>​',
+			'</ p >','</p>'}
 		
 		driver.find_element_by_id('id_translation').clear()
-		trnsf=trnsf.replace('[Προϊόν]','​[Product]​')
-		trnsf=trnsf.replace('[Κεντρική]','​[Central]​')
-		trnsf=trnsf.replace('<a> <b> <c /> </b> </a>','​​<a>​ ​<b>​ ​<c/>​ ​</b>​ ​</a>')
-		trnsf=trnsf.replace('<b> <c> <d /> </c> </b>','​​<b> <c> <d /> </c> </b>')
-		trnsf=trnsf.replace('{ημερομηνία}','​​{date}')
-		trnsf=trnsf.replace('\"{info}\"','​​\'​{info}\'')
-		trnsf=trnsf.replace('{{factory_name}}','​​{{manufacturer_​name}}')
+		#trnsf=trnsf.replace('[Προϊόν]','​[Product]​')
+		#trnsf=trnsf.replace('[Κεντρική]','​[Central]​')
+		#trnsf=trnsf.replace('<a> <b> <c /> </b> </a>','​​<a>​ ​<b>​ ​<c/>​ ​</b>​ ​</a>')
+		#trnsf=trnsf.replace('<b> <c> <d /> </c> </b>','​​<b> <c> <d/> </c> </b>')
+		#trnsf=trnsf.replace('{ημερομηνία}','​​{date}')
+		#trnsf=trnsf.replace('\"{info}\"','​​\'​{info}\'')
+		#trnsf=trnsf.replace('{{factory_name}}','​​{{manufacturer_​name}}')
+		#trnsf=trnsf.replace('\ n','\\n')
+		for key in a_dict:
+			trnsf=trnsf.replace(str(key),str(a_dict[key]))
 		print('=Translated: ',trnsf)
 
 		driver.find_element_by_id('id_translation').send_keys(trnsf)
@@ -49,5 +65,6 @@ while 1:
 		driver.find_element_by_xpath('//*[@id="pagecontent"]/div[1]/div/form/div[2]/button[1]').click()
 	except:
 		print("End of the line.\n", sys.exc_info()[0], "occurred.")
-		fpage=input("Input another entry to start: ")
+		fpage=input("Input n/N o stop or input another entry to start: ")
+		if fpage=='N' or fpage=='n': break
 		driver.get(fpage)
